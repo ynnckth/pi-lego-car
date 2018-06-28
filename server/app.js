@@ -8,7 +8,7 @@ const STEER_RIGHT = 'RIGHT';
 const STOP_STEERING = 'STOP_STEERING';
 const STOP_THROTTLE = 'STOP_THROTTLE';
 
-// TODO: define GPIO pins on raspberry pi
+// TODO: add GPIO pins on raspberry pi
 
 const ACTION_EVENT = 'action';
 
