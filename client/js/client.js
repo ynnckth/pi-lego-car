@@ -12,6 +12,10 @@
 
     let lastPressedKey;
 
+    const sendCommand = (command) => {
+        socket.emit(ACTION_EVENT, {command: command});
+    };
+
     const handleKeyPress = () => {
         window.addEventListener("keydown", (e) => {
             let currentlyPressedKey = e.keyCode;
@@ -21,15 +25,15 @@
             switch (currentlyPressedKey) {
                 case ARROW_UP:
                     console.log("throttling...");
-                    socket.emit(ACTION_EVENT, {command: 'THROTTLE'});
+                    sendCommand('THROTTLE');
                     break;
                 case ARROW_LEFT:
                     console.log("steering left...");
-                    socket.emit(ACTION_EVENT, {command: 'LEFT'});
+                    sendCommand('LEFT');
                     break;
                 case ARROW_RIGHT:
                     console.log("steering right...");
-                    socket.emit(ACTION_EVENT, {command: 'RIGHT'});
+                    sendCommand('RIGHT');
                     break;
                 default:
                     break;
@@ -44,11 +48,11 @@
                 case ARROW_LEFT:
                 case ARROW_RIGHT:
                     console.log("stop steering");
-                    socket.emit(ACTION_EVENT, {command: 'STOP_STEERING'});
+                    sendCommand('STOP_STEERING');
                     break;
                 case ARROW_UP:
                     console.log("stop throttling");
-                    socket.emit(ACTION_EVENT, {command: 'STOP_THROTTLE'});
+                    sendCommand('STOP_THROTTLE');
                     break;
                 default:
                     break;
