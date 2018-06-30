@@ -1,7 +1,6 @@
 (() => {
 
-    // TODO: the raspberry's IP address is needed instead of localhost since the server runs on the pi
-    const ROVER_SERVER = 'http://localhost:3000';
+    const ROVER_SERVER = 'http://192.168.1.200:3000';
     const socket = io.connect(ROVER_SERVER);
 
     const ARROW_UP = 38;
