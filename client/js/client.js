@@ -1,6 +1,7 @@
 (() => {
 
-    const ROVER_SERVER = 'http://192.168.1.200:8081';
+    // TODO: store as environment variable
+    const ROVER_SERVER = 'http://localhost:8081';
     const socket = io.connect(ROVER_SERVER);
 
     const ARROW_UP = 38;
