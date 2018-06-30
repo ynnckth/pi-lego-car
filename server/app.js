@@ -16,7 +16,7 @@ const ACTION_EVENT = 'action';
 server.listen(3000);
 
 app.get('/', (req, res) => {
-    res.sendfile(__dirname + '/index.html');
+    res.sendfile('../client/index.html');
 });
 
 io.on('connection', (socket) => {
