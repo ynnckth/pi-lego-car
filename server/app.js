@@ -1,6 +1,6 @@
-const app = require('express')();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const express = require('express');
+
+const SERVER_PORT = 8081;
 
 const THROTTLE = 'THROTTLE';
 const STEER_LEFT = 'LEFT';
@@ -9,15 +9,17 @@ const STOP_STEERING = 'STOP_STEERING';
 const STOP_THROTTLE = 'STOP_THROTTLE';
 
 // TODO: add GPIO pins on raspberry pi
-
 const ACTION_EVENT = 'action';
 
 
-server.listen(3000);
+const app = express();
+app.use(express.static('client'));
 
-app.get('/', (req, res) => {
-    res.sendfile('../client/index.html');
+const server = app.listen(SERVER_PORT, () => {
+    console.log("Server running on port %s", SERVER_PORT);
 });
+
+const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
     socket.on(ACTION_EVENT, (action) => {

@@ -1,6 +1,6 @@
 (() => {
 
-    const ROVER_SERVER = 'http://192.168.1.200:3000';
+    const ROVER_SERVER = 'http://192.168.1.200:8081';
     const socket = io.connect(ROVER_SERVER);
 
     const ARROW_UP = 38;
