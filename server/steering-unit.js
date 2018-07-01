@@ -1,17 +1,19 @@
 
-const Gpio = require('pigpio').Gpio;
+// const Gpio = require('pigpio').Gpio;
 
-SteeringUnit.LEFT = 'left';
-SteeringUnit.RIGHT = 'right';
-
+/*
 const motor = new Gpio(10, {mode: Gpio.OUTPUT});
 let pulseWidth = 1000;
 let increment = 100;
+*/
+
+const LEFT = 'left';
+const RIGHT = 'right';
 
 class SteeringUnit {
 
     constructor() {
-
+        /*
         setInterval(() => {
             motor.servoWrite(pulseWidth);
 
@@ -22,14 +24,15 @@ class SteeringUnit {
                 increment = 100;
             }
         }, 1000);
+        */
     }
 
     steer(direction) {
         switch (direction) {
-            case SteeringUnit.LEFT:
+            case LEFT:
                 console.log('steering left...');
                 break;
-            case SteeringUnit.RIGHT:
+            case RIGHT:
                 console.log('steering right...');
                 break;
             default:
@@ -39,6 +42,14 @@ class SteeringUnit {
 
     returnToCenter() {
         console.log('stop steering');
+    }
+
+    static get LEFT() {
+        return LEFT;
+    }
+
+    static get RIGHT() {
+        return RIGHT;
     }
 }
 

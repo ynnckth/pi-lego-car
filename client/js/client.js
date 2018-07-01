@@ -42,6 +42,7 @@
         });
     };
 
+    // TODO: fix (currently not triggering)
     const handleKeyRelease = () => {
         window.addEventListener("keyup", (e) => {
             switch (e.keyCode) {

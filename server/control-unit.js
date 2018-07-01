@@ -1,5 +1,5 @@
 
-const steeringUnit = require('./steering-unit');
+const SteeringUnit = require('./steering-unit');
 
 const ACTION_EVENT = 'action';
 const THROTTLE = 'THROTTLE';
@@ -9,13 +9,14 @@ const STOP_STEERING = 'STOP_STEERING';
 const STOP_THROTTLE = 'STOP_THROTTLE';
 
 
-class CommandListener {
+class ControlUnit {
 
     constructor(io) {
         this.io = io;
+        this.steeringUnit = new SteeringUnit();
     }
 
-    startListening() {
+    start() {
         this.io.on('connection', (socket) => {
             socket.on(ACTION_EVENT, (action) => {
                 switch (action.command) {
@@ -28,13 +29,13 @@ class CommandListener {
                         // TODO: stop accelerating
                         break;
                     case STEER_LEFT:
-                        steeringUnit.steer(SteeringUnit.LEFT);
+                        this.steeringUnit.steer(SteeringUnit.LEFT);
                         break;
                     case STEER_RIGHT:
-                        steeringUnit.steer(SteeringUnit.RIGHT);
+                        this.steeringUnit.steer(SteeringUnit.RIGHT);
                         break;
                     case STOP_STEERING:
-                        steeringUnit.returnToCenter();
+                        this.steeringUnit.returnToCenter();
                         break;
                     default:
                         break;
@@ -44,4 +45,4 @@ class CommandListener {
     }
 }
 
-module.exports = CommandListener;
+module.exports = ControlUnit;

@@ -1,5 +1,5 @@
 const express = require('express');
-const CommandListener = require('./command-listener');
+const ControlUnit = require('./control-unit');
 
 const SERVER_PORT = 8081;
 
@@ -12,5 +12,5 @@ const server = app.listen(SERVER_PORT, () => {
 
 const io = require('socket.io')(server);
 
-const commandListener = new CommandListener(io);
-commandListener.startListening();
+const controlUnit = new ControlUnit(io);
+controlUnit.start();

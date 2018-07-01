@@ -10,3 +10,5 @@
 - Script for autostart application and video stream
 - Connect to raspberry pi
 
+- sudo npm start
+su rights are needed to control GPIO of Pi
