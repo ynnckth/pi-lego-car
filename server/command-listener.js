@@ -10,22 +10,23 @@ const STOP_THROTTLE = 'STOP_THROTTLE';
 // TODO: add GPIO pins on raspberry pi
 const ACTION_EVENT = 'action';
 
+const motor = new Gpio(10, {mode: Gpio.OUTPUT});
+let pulseWidth = 1000;
+let increment = 100;
+
 class CommandListener {
 
     constructor(io) {
         this.io = io;
-        this.motor = new Gpio(10, {mode: Gpio.OUTPUT});
-        this.pulseWidth= 1000;
-        this.increment = 100;
 
-        setInterval(function () {
-            this.motor.servoWrite(pulseWidth);
+        setInterval(() => {
+            motor.servoWrite(pulseWidth);
 
-            this.pulseWidth += this.increment;
-            if (this.pulseWidth >= 2000) {
-                this.increment = -100;
-            } else if (this.pulseWidth <= 1000) {
-                this.increment = 100;
+            pulseWidth += increment;
+            if (pulseWidth >= 2000) {
+                increment = -100;
+            } else if (pulseWidth <= 1000) {
+                increment = 100;
             }
         }, 1000);
     }
