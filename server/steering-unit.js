@@ -9,6 +9,7 @@ let increment = 100;
 
 const LEFT = 'left';
 const RIGHT = 'right';
+const CENTER = 'center';
 
 class SteeringUnit {
 
@@ -35,13 +36,12 @@ class SteeringUnit {
             case RIGHT:
                 console.log('steering right...');
                 break;
+            case CENTER:
+                console.log('returning to center...');
+                break;
             default:
                 break;
         }
-    }
-
-    returnToCenter() {
-        console.log('stop steering');
     }
 
     static get LEFT() {
@@ -50,6 +50,10 @@ class SteeringUnit {
 
     static get RIGHT() {
         return RIGHT;
+    }
+
+    static get CENTER() {
+        return CENTER;
     }
 }
 

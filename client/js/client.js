@@ -25,7 +25,7 @@
             switch (currentlyPressedKey) {
                 case ARROW_UP:
                     console.log("throttling...");
-                    sendCommand('THROTTLE');
+                    sendCommand('ACCELERATE');
                     break;
                 case ARROW_LEFT:
                     console.log("steering left...");
@@ -48,12 +48,12 @@
             switch (e.keyCode) {
                 case ARROW_LEFT:
                 case ARROW_RIGHT:
-                    console.log("stop steering");
-                    sendCommand('STOP_STEERING');
+                    console.log("steer center");
+                    sendCommand('STEER_CENTER');
                     break;
                 case ARROW_UP:
-                    console.log("stop throttling");
-                    sendCommand('STOP_THROTTLE');
+                    console.log("stop accelerating");
+                    sendCommand('STOP');
                     break;
                 default:
                     break;

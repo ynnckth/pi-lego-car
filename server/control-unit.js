@@ -2,11 +2,11 @@
 const SteeringUnit = require('./steering-unit');
 
 const ACTION_EVENT = 'action';
-const THROTTLE = 'THROTTLE';
+const ACCELERATE = 'ACCELERATE';
+const STOP = 'STOP';
 const STEER_LEFT = 'LEFT';
 const STEER_RIGHT = 'RIGHT';
-const STOP_STEERING = 'STOP_STEERING';
-const STOP_THROTTLE = 'STOP_THROTTLE';
+const STEER_CENTER = 'STEER_CENTER';
 
 
 class ControlUnit {
@@ -20,11 +20,11 @@ class ControlUnit {
         this.io.on('connection', (socket) => {
             socket.on(ACTION_EVENT, (action) => {
                 switch (action.command) {
-                    case THROTTLE:
+                    case ACCELERATE:
                         console.log('accelerating...');
                         // TODO: accelerate max
                         break;
-                    case STOP_THROTTLE:
+                    case STOP:
                         console.log('stopping throttle');
                         // TODO: stop accelerating
                         break;
@@ -34,8 +34,8 @@ class ControlUnit {
                     case STEER_RIGHT:
                         this.steeringUnit.steer(SteeringUnit.RIGHT);
                         break;
-                    case STOP_STEERING:
-                        this.steeringUnit.returnToCenter();
+                    case STEER_CENTER:
+                        this.steeringUnit.steer(SteeringUnit.CENTER);
                         break;
                     default:
                         break;
