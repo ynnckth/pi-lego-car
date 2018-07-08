@@ -1,7 +1,7 @@
 (() => {
 
-    // TODO: store as environment variable
-    const ROVER_SERVER = 'http://localhost:8081';
+    // TODO: extract into environment variables
+    const ROVER_SERVER = 'http://192.168.1.200:8081';
     const socket = io.connect(ROVER_SERVER);
 
     const ARROW_UP = 38;
@@ -17,22 +17,22 @@
     };
 
     const handleKeyPress = () => {
-        window.addEventListener("keydown", (e) => {
+        window.addEventListener('keydown', (e) => {
             let currentlyPressedKey = e.keyCode;
             if (lastPressedKey === currentlyPressedKey) {
                 return;
             }
             switch (currentlyPressedKey) {
                 case ARROW_UP:
-                    console.log("throttling...");
+                    console.log('throttling...');
                     sendCommand('ACCELERATE');
                     break;
                 case ARROW_LEFT:
-                    console.log("steering left...");
+                    console.log('steering left...');
                     sendCommand('LEFT');
                     break;
                 case ARROW_RIGHT:
-                    console.log("steering right...");
+                    console.log('steering right...');
                     sendCommand('RIGHT');
                     break;
                 default:
@@ -42,17 +42,16 @@
         });
     };
 
-    // TODO: fix (currently not triggering)
     const handleKeyRelease = () => {
-        window.addEventListener("keyup", (e) => {
+        window.addEventListener('keyup', (e) => {
             switch (e.keyCode) {
                 case ARROW_LEFT:
                 case ARROW_RIGHT:
-                    console.log("steer center");
+                    console.log('steer center');
                     sendCommand('STEER_CENTER');
                     break;
                 case ARROW_UP:
-                    console.log("stop accelerating");
+                    console.log('stop accelerating');
                     sendCommand('STOP');
                     break;
                 default:
