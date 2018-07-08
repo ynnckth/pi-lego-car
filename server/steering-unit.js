@@ -1,8 +1,4 @@
 
-const Gpio = require('pigpio').Gpio;
-
-const motor = new Gpio(10, {mode: Gpio.OUTPUT});
-
 const LEFT = 'left';
 const RIGHT = 'right';
 const CENTER = 'center';
@@ -10,7 +6,10 @@ const CENTER = 'center';
 
 class SteeringUnit {
 
-    constructor() {}
+    constructor(gpio) {
+        // TODO: set correct pin
+        this.motor = new gpio(10, {mode: gpio.OUTPUT});
+    }
 
     /**
      * servoWrite(pulseWidth): pulsewidth in ms
@@ -22,7 +21,7 @@ class SteeringUnit {
                 console.log('steering left...');
 
                 const interval = setInterval(() => {
-                    motor.servoWrite(1000);
+                    this.motor.servoWrite(1000);
                 }, 200);
 
                 clearInterval(interval);
@@ -30,11 +29,11 @@ class SteeringUnit {
                 break;
             case RIGHT:
                 console.log('steering right...');
-                motor.servoWrite(2000);
+                this.motor.servoWrite(2000);
                 break;
             case CENTER:
                 console.log('returning to center...');
-                motor.servoWrite(0);
+                this.motor.servoWrite(0);
                 break;
             default:
                 break;

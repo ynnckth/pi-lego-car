@@ -11,6 +11,9 @@ Install the pigpio C library (https://www.npmjs.com/package/pigpio):
 `sudo apt-get update`  
 `sudo apt-get install pigpio`  
 
+Setup and install **mjpg-streamer** for video streaming from the Pi: 
+https://desertbot.io/blog/how-to-stream-the-picamera
+
 Install project:  
 `npm install`
 
