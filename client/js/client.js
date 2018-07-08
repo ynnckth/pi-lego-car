@@ -19,9 +19,11 @@
     const handleKeyPress = () => {
         window.addEventListener('keydown', (e) => {
             let currentlyPressedKey = e.keyCode;
+            // ignore multiple pressing of the same key
             if (lastPressedKey === currentlyPressedKey) {
                 return;
             }
+
             switch (currentlyPressedKey) {
                 case ARROW_UP:
                     console.log('throttling...');
