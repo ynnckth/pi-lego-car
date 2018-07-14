@@ -11,9 +11,9 @@ const STEER_CENTER = 'STEER_CENTER';
 
 class ControlUnit {
 
-    constructor(io) {
+    constructor(io, gpio) {
         this.io = io;
-        this.steeringUnit = new SteeringUnit();
+        this.steeringUnit = new SteeringUnit(gpio);
     }
 
     start() {
