@@ -2,13 +2,14 @@
 const LEFT = 'left';
 const RIGHT = 'right';
 const CENTER = 'center';
+const MAX_STEERING_DURATION = 500;  // in millis
 
+const GPIO_PIN = 10;
 
 class SteeringUnit {
 
     constructor(gpio) {
-        // TODO: set correct pin
-        this.motor = new gpio(10, {mode: gpio.OUTPUT});
+        this.motor = new gpio(GPIO_PIN, {mode: gpio.OUTPUT});
     }
 
     /**
@@ -19,17 +20,13 @@ class SteeringUnit {
         switch (direction) {
             case LEFT:
                 console.log('steering left...');
-
-                const interval = setInterval(() => {
-                    this.motor.servoWrite(1000);
-                }, 200);
-
-                clearInterval(interval);
-
+                this.motor.servoWrite(500);
+                this.stopTurningWhenLimitReached();
                 break;
             case RIGHT:
                 console.log('steering right...');
                 this.motor.servoWrite(2000);
+                this.stopTurningWhenLimitReached();
                 break;
             case CENTER:
                 console.log('returning to center...');
@@ -38,6 +35,12 @@ class SteeringUnit {
             default:
                 break;
         }
+    }
+
+    stopTurningWhenLimitReached() {
+        setTimeout(() => {
+            this.motor.servoWrite(0);
+        }, MAX_STEERING_DURATION);
     }
 
     static get LEFT() {
