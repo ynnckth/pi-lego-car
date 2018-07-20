@@ -2,14 +2,19 @@
 const LEFT = 'left';
 const RIGHT = 'right';
 const CENTER = 'center';
+
+// TODO: adapt this value to the steering hardware
 const MAX_STEERING_DURATION = 500;  // in millis
 
+// TODO: set correct GPIO pin of the car
 const GPIO_PIN = 10;
+
 
 class SteeringUnit {
 
     constructor(gpio) {
         this.motor = new gpio(GPIO_PIN, {mode: gpio.OUTPUT});
+        this.currentDirection = CENTER;
     }
 
     /**
@@ -17,6 +22,9 @@ class SteeringUnit {
      * 0 (off), 500 (most anti-clockwise), 2500 (most clockwise)
      */
     steer(direction) {
+        if (direction === this.currentDirection) {
+            return;
+        }
         switch (direction) {
             case LEFT:
                 console.log('steering left...');
@@ -35,6 +43,7 @@ class SteeringUnit {
             default:
                 break;
         }
+        this.currentDirection = direction;
     }
 
     stopTurningWhenLimitReached() {
