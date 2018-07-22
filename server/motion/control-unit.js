@@ -9,6 +9,9 @@ const STEER_RIGHT = 'RIGHT';
 const STEER_CENTER = 'STEER_CENTER';
 
 
+/**
+ * The ControlUnit receives commands (steering and acceleration) from the pilot to maneuver the car.
+ */
 class ControlUnit {
 
     constructor(io, gpio) {
