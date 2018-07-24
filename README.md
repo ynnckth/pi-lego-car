@@ -8,7 +8,7 @@
 
 **Prerequisites**
 
-- **GPIO**
+- **GPIO**  
 Install the pigpio C library (https://www.npmjs.com/package/pigpio):  
 `sudo apt-get update`  
 `sudo apt-get install pigpio`  
