@@ -1,16 +1,19 @@
 
+const GPIO_PIN = 10;
+
 const LEFT = 'left';
 const RIGHT = 'right';
 const CENTER = 'center';
 
-// TODO: adapt this value to the steering hardware
-const MAX_STEERING_DURATION = 500;  // in millis
-const SERVO_PWM_LEFT = 500;
-const SERVO_PWM_RIGHT = 2000;
-const SERVO_PWM_STOP = 0;
+// the duration to steer from the center to each side
+// until the limit steering angle is reached
+const STEERING_RANGE_DURATION = 500;  // in millis
 
-// TODO: set correct GPIO pin of the car
-const GPIO_PIN = 10;
+const DIRECTION_TO_PWM_MAP = {
+    'left': 500,
+    'right': 2000
+};
+const SERVO_PWM_STOP = 0;
 
 
 class SteeringUnit {
@@ -18,48 +21,55 @@ class SteeringUnit {
     constructor(gpio) {
         this.motor = new gpio(GPIO_PIN, {mode: gpio.OUTPUT});
         this.currentDirection = CENTER;
+        this.operationInProgress = false;
+    }
+
+    /**
+     * TODO: fix bug when LEFT or RIGHT is pressed quickly and then released.
+     * In this case the release event gets dropped since the turning operation was still in progress.
+     * Idea: Handle the steering events in a queue and treat the press/release events together (reactive stream).
+     */
+    steer(direction) {
+        if (direction === this.currentDirection || this.operationInProgress === true) {
+            return;
+        }
+        switch (direction) {
+            case LEFT:
+                this.turn(LEFT);
+                break;
+            case RIGHT:
+                this.turn(RIGHT);
+                break;
+            case CENTER:
+                if (this.currentDirection === LEFT) {
+                    this.turn(RIGHT);
+                } else if (this.currentDirection === RIGHT) {
+                    this.turn(LEFT);
+                }
+                break;
+            default:
+                break;
+        }
+        this.currentDirection = direction;
     }
 
     /**
      * servoWrite(pulseWidth): pulsewidth in ms
      * 0 (off), 500 (most anti-clockwise), 2500 (most clockwise)
      */
-    // TODO: fix returning to center after steering in one direction
-    steer(direction) {
-        if (direction === this.currentDirection) {
-            return;
-        }
-
-        console.log("steering direction: " + direction);
-        switch (direction) {
-            case LEFT:
-                this.motor.servoWrite(SERVO_PWM_LEFT);
-                this.stopTurningWhenLimitReached();
-                this.currentDirection = direction;
-                break;
-            case RIGHT:
-                this.motor.servoWrite(SERVO_PWM_RIGHT);
-                this.stopTurningWhenLimitReached();
-                this.currentDirection = direction;
-                break;
-            case CENTER:
-                if (this.currentDirection === LEFT) {
-                    this.motor.servoWrite(RIGHT);
-                } else {
-                    this.motor.servoWrite(LEFT);
-                }
-                this.stopTurningWhenLimitReached();
-                break;
-            default:
-                break;
-        }
+    turn(direction) {
+        this.operationInProgress = true;
+        this.motor.servoWrite(DIRECTION_TO_PWM_MAP[direction]);
+        this.stopAfterMillis(STEERING_RANGE_DURATION);
     }
 
-    stopTurningWhenLimitReached() {
+    stopAfterMillis(millis) {
         setTimeout(() => {
             this.motor.servoWrite(SERVO_PWM_STOP);
-        }, MAX_STEERING_DURATION);
+            this.operationInProgress = false;
+        }, millis);
     }
+
 
     static get LEFT() {
         return LEFT;
