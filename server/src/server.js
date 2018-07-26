@@ -1,5 +1,5 @@
 const express = require('express');
-const ControlUnit = require('./motion/control-unit');
+const ControlUnit = require('./control-unit');
 
 const SERVER_PORT = 8081;
 
