@@ -1,4 +1,5 @@
 # Rover
+Lego Raspberry Pi web controlled rover with live video stream
 
 <img src="https://raw.githubusercontent.com/ynnckth/rover/master/docs/rover.JPG" width="600">
 
@@ -29,7 +30,7 @@ The current run config expects the mjpg-streamer repository to be cloned inside 
 `sudo apt-get install python-imaging`  
 `sudo apt-get install libjpeg-dev`  
 4. Compile:  
-`make CMAKE_BUILD_TYPE=Debug`
+`make CMAKE_BUILD_TYPE=Debug`  
 `sudo make install`
 
 
