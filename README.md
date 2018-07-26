@@ -6,8 +6,8 @@
 Tested on a Raspberry Pi 2 Model B V1.1  
 OS: Linux raspberrypi 4.14.52-v7+
 
-- TODO: add breadboard schema (e.g. fritzing)
-- TODO: document power supply
+<img src="https://raw.githubusercontent.com/ynnckth/rover/master/docs/setup_schema.png" width="600">
+
 
 **Prerequisites**
 
