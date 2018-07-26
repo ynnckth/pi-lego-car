@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start:video-stream": "export LD_LIBRARY_PATH=mjpg-streamer/mjpg-streamer-experimental/ && ./mjpg-streamer/mjpg-streamer-experimental/mjpg_streamer -o \"output_http.so -w ./www\" -i \"input_raspicam.so\"",
-    "start": "node server/src/server.js & npm run start:video-stream"
+    "start": "node server/src/server.js & npm run start:video-stream",
+    "start:no-video": "node server/src/server.js"
   },
   "author": "",
   "license": "ISC",

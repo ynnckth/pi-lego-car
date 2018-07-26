@@ -5,71 +5,41 @@ const LEFT = 'left';
 const RIGHT = 'right';
 const CENTER = 'center';
 
-// the duration to steer from the center to each side
-// until the limit steering angle is reached
-const STEERING_RANGE_DURATION = 500;  // in millis
-
-const DIRECTION_TO_PWM_MAP = {
-    'left': 500,
-    'right': 2000
-};
-const SERVO_PWM_STOP = 0;
+// TODO: fix and adapt values to the servo motor
+const PWM_DUTY_CYLE_LEFT = 70;
+const PWM_DUTY_CYLE_CENTER = 160;
+const PWM_DUTY_CYLE_RIGHT = 250;
 
 
 class SteeringUnit {
 
     constructor(gpio) {
         this.motor = new gpio(GPIO_PIN, {mode: gpio.OUTPUT});
-        this.currentDirection = CENTER;
-        this.operationInProgress = false;
     }
 
     /**
-     * TODO: fix bug when LEFT or RIGHT is pressed quickly and then released.
-     * In this case the release event gets dropped since the turning operation was still in progress.
-     * Idea: Handle the steering events in a queue and treat the press/release events together (reactive stream).
+     * The servo motor is controlled with pulse with modulation (PWM).
+     *
+     * Gpio.pwmWrite(dutyCycle)
+     * dutyCycle: integer between 0 (off) and 255 (fully on)
+     * Uses DMA to control and schedule the pulse lengths and duty cycle
+     * See https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pwmwritedutycycle
      */
     steer(direction) {
-        if (direction === this.currentDirection || this.operationInProgress === true) {
-            return;
-        }
         switch (direction) {
             case LEFT:
-                this.turn(LEFT);
-                break;
-            case RIGHT:
-                this.turn(RIGHT);
+                this.motor.pwmWrite(PWM_DUTY_CYLE_LEFT);
                 break;
             case CENTER:
-                if (this.currentDirection === LEFT) {
-                    this.turn(RIGHT);
-                } else if (this.currentDirection === RIGHT) {
-                    this.turn(LEFT);
-                }
+                this.motor.pwmWrite(PWM_DUTY_CYLE_CENTER);
+                break;
+            case RIGHT:
+                this.motor.pwmWrite(PWM_DUTY_CYLE_RIGHT);
                 break;
             default:
                 break;
         }
-        this.currentDirection = direction;
     }
-
-    /**
-     * servoWrite(pulseWidth): pulsewidth in ms
-     * 0 (off), 500 (most anti-clockwise), 2500 (most clockwise)
-     */
-    turn(direction) {
-        this.operationInProgress = true;
-        this.motor.servoWrite(DIRECTION_TO_PWM_MAP[direction]);
-        this.stopAfterMillis(STEERING_RANGE_DURATION);
-    }
-
-    stopAfterMillis(millis) {
-        setTimeout(() => {
-            this.motor.servoWrite(SERVO_PWM_STOP);
-            this.operationInProgress = false;
-        }, millis);
-    }
-
 
     static get LEFT() {
         return LEFT;
