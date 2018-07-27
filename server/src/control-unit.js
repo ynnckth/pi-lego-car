@@ -3,7 +3,7 @@ const EngineUnit = require('./engine-unit');
 
 
 /**
- * The ControlUnit receives commands (steering and acceleration) from the pilot to maneuver the car.
+ * The control unit receives commands (steering and acceleration) from the client to maneuver the car.
  */
 class ControlUnit {
 
@@ -13,7 +13,11 @@ class ControlUnit {
         this.engineUnit = new EngineUnit(gpio);
     }
 
-    start() {
+    /**
+     * Starts listening to commands from the client
+     * and delegates them to the corresponding unit.
+     */
+    init() {
         this.io.on('connection', (socket) => {
             socket.on('action', (action) => {
 
@@ -31,6 +35,7 @@ class ControlUnit {
                         this.steeringUnit.steer(action.command);
                         break;
                     default:
+                        console.log('Received unknown command %s', action.command);
                         break;
                 }
             });

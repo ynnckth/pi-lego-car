@@ -11,7 +11,7 @@ const server = app.listen(SERVER_PORT, () => {
 });
 
 const io = require('socket.io')(server);
-const Gpio = require('pigpio').Gpio;
+const gpio = require('pigpio').Gpio;
 
-const controlUnit = new ControlUnit(io, Gpio);
-controlUnit.start();
+const controlUnit = new ControlUnit(io, gpio);
+controlUnit.init();

@@ -1,9 +1,9 @@
 
-const SERVO_SIGNAL_GPIO_PIN = 10;
-
 const LEFT = 'left';
 const RIGHT = 'right';
 const CENTER = 'center';
+
+const SERVO_SIGNAL_PIN = 10;    // GPIO10, Pin #19
 
 // TODO: fix and adapt values to the servo motor
 const PWM_DUTY_CYLE_LEFT = 70;
@@ -17,7 +17,7 @@ const PWM_DUTY_CYLE_RIGHT = 250;
 class SteeringUnit {
 
     constructor(gpio) {
-        this.motor = new gpio(SERVO_SIGNAL_GPIO_PIN, {mode: gpio.OUTPUT});
+        this.servoSignal = new gpio(SERVO_SIGNAL_PIN, {mode: gpio.OUTPUT});
     }
 
     /**
@@ -31,13 +31,13 @@ class SteeringUnit {
     steer(direction) {
         switch (direction) {
             case LEFT:
-                this.motor.pwmWrite(PWM_DUTY_CYLE_LEFT);
+                this.servoSignal.pwmWrite(PWM_DUTY_CYLE_LEFT);
                 break;
             case CENTER:
-                this.motor.pwmWrite(PWM_DUTY_CYLE_CENTER);
+                this.servoSignal.pwmWrite(PWM_DUTY_CYLE_CENTER);
                 break;
             case RIGHT:
-                this.motor.pwmWrite(PWM_DUTY_CYLE_RIGHT);
+                this.servoSignal.pwmWrite(PWM_DUTY_CYLE_RIGHT);
                 break;
             default:
                 break;
