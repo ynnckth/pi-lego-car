@@ -1,12 +1,5 @@
-
 const SteeringUnit = require('./steering-unit');
-
-const ACTION_EVENT = 'action';
-const ACCELERATE = 'ACCELERATE';
-const STOP = 'STOP';
-const STEER_LEFT = 'LEFT';
-const STEER_RIGHT = 'RIGHT';
-const STEER_CENTER = 'STEER_CENTER';
+const EngineUnit = require('./engine-unit');
 
 
 /**
@@ -17,28 +10,25 @@ class ControlUnit {
     constructor(io, gpio) {
         this.io = io;
         this.steeringUnit = new SteeringUnit(gpio);
+        this.engineUnit = new EngineUnit(gpio);
     }
 
     start() {
         this.io.on('connection', (socket) => {
-            socket.on(ACTION_EVENT, (action) => {
+            socket.on('action', (action) => {
+
                 switch (action.command) {
-                    case ACCELERATE:
-                        console.log('accelerating...');
-                        // TODO: accelerate max
+                    case EngineUnit.FORWARD:
+                    case EngineUnit.BACKWARD:
+                        this.engineUnit.move(action.command);
                         break;
-                    case STOP:
-                        console.log('stopping throttle');
-                        // TODO: stop accelerating
+                    case EngineUnit.STOP:
+                        this.engineUnit.stop();
                         break;
-                    case STEER_LEFT:
-                        this.steeringUnit.steer(SteeringUnit.LEFT);
-                        break;
-                    case STEER_RIGHT:
-                        this.steeringUnit.steer(SteeringUnit.RIGHT);
-                        break;
-                    case STEER_CENTER:
-                        this.steeringUnit.steer(SteeringUnit.CENTER);
+                    case SteeringUnit.LEFT:
+                    case SteeringUnit.CENTER:
+                    case SteeringUnit.RIGHT:
+                        this.steeringUnit.steer(action.command);
                         break;
                     default:
                         break;

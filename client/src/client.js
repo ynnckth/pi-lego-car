@@ -7,56 +7,54 @@
     const ARROW_UP = 38;
     const ARROW_LEFT = 37;
     const ARROW_RIGHT = 39;
+    const ARROW_DOWN = 40;
 
-    const ACTION_EVENT = 'action';
-
-    let lastPressedKey;
+    const commands = {
+        FORWARD: 'forward',
+        BACKWARD: 'backward',
+        STOP: 'stop',
+        LEFT: 'left',
+        RIGHT: 'right',
+        CENTER: 'center'
+    };
 
     const sendCommand = (command) => {
-        socket.emit(ACTION_EVENT, {command: command});
+        socket.emit('action', {command: command});
     };
 
     window.addEventListener('keydown', (e) => {
         let currentlyPressedKey = e.keyCode;
-        // ignore multiple pressing of the same key
-        if (lastPressedKey === currentlyPressedKey) {
-            return;
-        }
-
         switch (currentlyPressedKey) {
             case ARROW_UP:
-                console.log('throttling...');
-                sendCommand('ACCELERATE');
+                sendCommand(commands.FORWARD);
+                break;
+            case ARROW_DOWN:
+                sendCommand(commands.BACKWARD);
                 break;
             case ARROW_LEFT:
-                console.log('steering left...');
-                sendCommand('LEFT');
+                sendCommand(commands.LEFT);
                 break;
             case ARROW_RIGHT:
-                console.log('steering right...');
-                sendCommand('RIGHT');
+                sendCommand(commands.RIGHT);
                 break;
             default:
                 break;
         }
-        lastPressedKey = currentlyPressedKey;
     });
 
     window.addEventListener('keyup', (e) => {
         switch (e.keyCode) {
             case ARROW_LEFT:
             case ARROW_RIGHT:
-                console.log('steer center');
-                sendCommand('STEER_CENTER');
+                sendCommand(commands.CENTER);
                 break;
             case ARROW_UP:
-                console.log('stop accelerating');
-                sendCommand('STOP');
+            case ARROW_DOWN:
+                sendCommand(commands.STOP);
                 break;
             default:
                 break;
         }
-        lastPressedKey = undefined;
     });
 
 })();
