@@ -14,10 +14,47 @@
 }
 
 .controls {
-    background-color: yellow;
-    width: 200px;
-    height: 100px;
+    position: relative;
+    width: 350px;
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.controls img {
+    width: 100%;
+}
+
+.controls span {
+    font-size: 10pt
+}
+
+.controls .arrow {
+    display: none;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: black;
+    opacity: 0.4;
+    border-radius: 2px;
+}
+
+.controls .arrow-up {
+    top: 95px;
+    left: 243px;
+}
+
+.controls .arrow-down {
+    top: 108px;
+    left: 243px;
+}
+
+.controls .arrow-left {
+    top: 108px;
+    left: 229px;
+}
+
+.controls .arrow-right {
+    top: 108px;
+    left: 257px;
 }

@@ -39,8 +39,6 @@ class SteeringUnit {
             case RIGHT:
                 this.servoSignal.pwmWrite(PWM_DUTY_CYLE_RIGHT);
                 break;
-            default:
-                break;
         }
     }
 

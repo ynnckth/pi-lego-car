@@ -35,8 +35,6 @@ class EngineUnit {
                 this.directionSignal2.digitalWrite(1);
                 this.speedSignal.pwmWrite(PWM_DUTY_CYCLE_SPEED);
                 break;
-            default:
-                break;
         }
     }
 
