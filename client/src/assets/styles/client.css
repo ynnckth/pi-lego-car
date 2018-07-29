@@ -7,10 +7,12 @@
 }
 
 .video-stream {
-    background-color: blue;
-    width: 400px;
-    height: 300px;
+    width: 450px;
     margin: 0 auto;
+}
+
+.video-stream img {
+    width: 100%;
 }
 
 .controls {
