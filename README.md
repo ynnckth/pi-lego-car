@@ -38,9 +38,10 @@ Install the project:
 `npm install`
 
 ### Run
-Start the application running on port 8081 (su permissions are needed to control the Pi's GPIO pins)
-mjpeg-streamer is started in parallel running on port 8080 providing the video stream:  
+Start the application running on port 8081 (su permissions are needed to control the Pi's GPIO pins)  
 `sudo npm start`  
 
 Open a browser and enter the Pi's IP-address:  
 `<ip-addr>:8081`
+
+and control the rover in your LAN.

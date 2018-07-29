@@ -9,7 +9,7 @@ const DIRECTION_PIN_2 = 18; // GPIO18, Pin #12
 
 // speed regulation
 const DC_MOTOR_PWM_PIN = 4; // GPIO04, Pin #7
-const PWM_DUTY_CYCLE_SPEED = 50;
+const PWM_DUTY_CYCLE_SPEED = 40;
 
 
 /**

@@ -30,7 +30,7 @@
 }
 
 .controls .arrow {
-    display: none;
+    visibility: hidden;
     position: absolute;
     width: 14px;
     height: 14px;
