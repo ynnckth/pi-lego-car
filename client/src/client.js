@@ -25,11 +25,11 @@
     };
 
     const highlightKeyboardArrow = (arrowClass) => {
-        document.getElementsByClassName(arrowClass)[0].style['visibility'] = 'visible';
+        document.querySelector(`.${arrowClass}`).style['visibility'] = 'visible';
     };
 
     const hideHighlightKeyboardArrow = (arrowClass) => {
-        document.getElementsByClassName(arrowClass)[0].style['visibility'] = 'hidden';
+        document.querySelector(`.${arrowClass}`).style['visibility'] = 'hidden';
     };
 
     window.addEventListener('keydown', (e) => {
