@@ -2,7 +2,6 @@
 *Lego Raspberry Pi web controlled rover with live video stream*
 
 <img src="https://raw.githubusercontent.com/ynnckth/rover/master/docs/rover.JPG" width="600">
-<img src="https://raw.githubusercontent.com/ynnckth/rover/master/docs/cockpit_screenshot.png" width="600">
 
 ## Setup and Installation
 Tested on a Raspberry Pi 2 Model B V1.1  
