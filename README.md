@@ -1,9 +1,10 @@
 # Rover
-Lego Raspberry Pi web controlled rover with live video stream
+*Lego Raspberry Pi web controlled rover with live video stream*
 
 <img src="https://raw.githubusercontent.com/ynnckth/rover/master/docs/rover.JPG" width="600">
+<img src="https://raw.githubusercontent.com/ynnckth/rover/master/docs/cockpit_screenshot.png" width="600">
 
-### Setup and Installation
+## Setup and Installation
 Tested on a Raspberry Pi 2 Model B V1.1  
 OS: Linux raspberrypi 4.14.52-v7+
 
@@ -37,7 +38,7 @@ The current run config expects the mjpg-streamer repository to be cloned inside 
 Install the project:  
 `npm install`
 
-### Run
+## Run
 Start the application running on port 8081 (su permissions are needed to control the Pi's GPIO pins)  
 `sudo npm start`  
 
@@ -45,3 +46,8 @@ Open a browser and enter the Pi's IP-address:
 `<ip-addr>:8081`
 
 and control the rover in your LAN.
+
+
+## Links
+- [Towerpro SG-90 servo motor documentation](https://components101.com/servo-motor-basics-pinout-datasheet])
+- [General servo motor instructions](http://pcbheaven.com/wikipages/How_RC_Servos_Works/)
